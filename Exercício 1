@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main (){
+    char c;
+    int i = 0;
+
+    FILE *arquivo_base;
+    arquivo_base = fopen("arquivo_base.txt", "r+");
+
+    if(arquivo_base == NULL){
+        printf("Erro na abertura\n");
+        exit(0);
+    }
+
+    c = getc(arquivo_base);
+    
+    while (!feof(arquivo_base)){
+        if (c != ' ' && c != '\n'){
+        i++;
+        }
+        c = getc(arquivo_base);
+    }
+    printf("O número de caracteres no texto dado é: %d\n", i);
+
+    fseek(arquivo_base, sizeof(arquivo_base), SEEK_END);
+    fprintf(arquivo_base, "%d", i);
+
+    fclose(arquivo_base);
+    return 0;
+}
