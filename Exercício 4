@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(){
+    char escolha[30];
+    char disponivel[] = "arquivo_base.txt";
+    char impressao[10];
+    char c;
+
+    while(1){
+
+        printf("Digite o arquivo que deseja abrir: ");
+        fgets(escolha, sizeof(escolha), stdin);
+        escolha[strlen(escolha) - 1] = '\0';
+
+        if(strcmp(escolha, disponivel) == 0 || strcmp(escolha, "arquivo_base") == 0) {
+            FILE *arquivo_base;
+            arquivo_base = fopen("arquivo_base.txt", "r");
+
+            if(arquivo_base == NULL){
+                printf("Erro na abertura\n");
+                exit(0);
+            }
+
+            c = getc(arquivo_base);
+
+            while (!feof(arquivo_base)){
+                fscanf(arquivo_base, "%s", impressao);
+                printf("%s", impressao);
+                
+                if(c == ' '){                   //IDENTIFICAÇÃO E IMPRESSÃO DE ESPAÇOS E QUEBRAS DE LINHA
+                    printf(" ");
+                }
+                else if(c == '\n'){
+                    printf("\n");
+                }
+                c = getc(arquivo_base);
+            }
+            fclose(arquivo_base);
+
+            printf("\n");
+            exit(0);
+        }
+        else if(escolha != disponivel){
+            printf("Arquivo não disponível, digite um arquivo válido...\n");
+        }
+    }
+
+    return 0;
+}
