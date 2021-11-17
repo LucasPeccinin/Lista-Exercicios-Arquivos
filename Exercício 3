@@ -18,7 +18,7 @@ int main (){
     texto[strlen(texto) - 1] = '\0';
 
     FILE *arquivo;
-    arquivo = fopen("arquivo.txt", "w");
+    arquivo = fopen(titulo, "w");
     
     if(arquivo == NULL){
         printf("Erro na abertura\n");
@@ -27,7 +27,7 @@ int main (){
 
     fprintf(arquivo, "%s", texto);
 
-    rename("arquivo.txt", titulo);
+    //rename("arquivo.txt", titulo);
 
     fclose(arquivo);
 
